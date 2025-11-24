@@ -2,7 +2,7 @@
 
 あなたの個人読書ライブラリを美しく展示するWebアプリケーションテンプレートです。
 
-[Virtual Bookshelf](https://karaage0703.github.io/karaage-virtual-bookshelf/)
+[Virtual Bookshelf](https://shimako55.github.io/my-bookshelf/)
 
 ## 🎯 概要
 
