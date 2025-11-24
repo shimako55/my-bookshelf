@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bookshelf</title>
+    <meta name="description" content="test - おすすめの技術書・プログラミング書籍を紹介する本棚">
+    <title>test - My Bookshelf</title>
     <style>
         * {
             margin: 0;
@@ -11,41 +12,283 @@
             box-sizing: border-box;
         }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            padding: 2rem;
         }
         .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .header {
             background: white;
-            padding: 3rem;
+            padding: 2rem;
             border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
             text-align: center;
-            max-width: 500px;
+            margin-bottom: 2rem;
         }
-        h1 {
+        .header-emoji {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .header h1 {
             color: #333;
-            margin-bottom: 1rem;
             font-size: 2rem;
+            margin-bottom: 0.5rem;
         }
-        p {
+        .header p {
             color: #666;
-            line-height: 1.6;
+            font-size: 1rem;
         }
-        .icon {
-            font-size: 4rem;
+        .section-title {
+            color: white;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid rgba(255, 255, 255, 0.8);
+        }
+        .main-book {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .main-book-image {
+            flex-shrink: 0;
+        }
+        .main-book-image img {
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        .main-book-info {
+            flex: 1;
+        }
+        .main-book-info h2 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+        .main-book-info .author {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .main-book-info .description {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        .amazon-link {
+            display: inline-block;
+            background: #ff9900;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+        .amazon-link:hover {
+            background: #e68a00;
+        }
+        .related-books {
+            margin-top: 2rem;
+        }
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .book-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+        }
+        .book-card a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .book-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: #f5f5f5;
+            padding: 1rem;
+        }
+        .book-card-info {
+            padding: 1rem;
+        }
+        .book-card-info h3 {
+            color: #333;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .book-card-info .author {
+            color: #888;
+            font-size: 0.8rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            margin-top: 3rem;
+            padding: 1rem;
+        }
+        .footer a {
+            color: white;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        @media (max-width: 768px) {
+            .main-book {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .main-book-image img {
+                width: 150px;
+            }
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="icon">=�</div>
-        <h1>My Bookshelf</h1>
-        <p>Welcome to my virtual bookshelf. This is a simple static page.</p>
+        <header class="header">
+            <div class="header-emoji">📚</div>
+            <h1>test</h1>
+            <p>おすすめの技術書・プログラミング書籍コレクション</p>
+        </header>
+
+        <h2 class="section-title">注目の一冊</h2>
+        <div class="main-book">
+            <div class="main-book-image">
+                <img src="https://m.media-amazon.com/images/I/41kgyr-6Z9L.jpg" alt="Pythonで動かしながら学ぶ コンピュータネットワーク">
+            </div>
+            <div class="main-book-info">
+                <h2>Pythonで動かしながら学ぶ コンピュータネットワーク</h2>
+                <p class="author">著者: 中山悠</p>
+                <p class="description">
+                    Pythonを使いながらコンピュータネットワークの基礎を実践的に学べる一冊です。
+                    実際にコードを動かしながら学ぶことで、ネットワークの仕組みを深く理解できます。
+                    プログラマやエンジニアにとって必須のネットワーク知識を、手を動かしながら身につけましょう。
+                </p>
+                <a href="https://www.amazon.co.jp/dp/B0FL1PRSH4" target="_blank" rel="noopener noreferrer" class="amazon-link">
+                    Amazonで見る
+                </a>
+            </div>
+        </div>
+
+        <section class="related-books">
+            <h2 class="section-title">関連するおすすめ書籍</h2>
+            <div class="books-grid">
+                <div class="book-card">
+                    <a href="https://www.amazon.co.jp/dp/B0F8GJB2VN" target="_blank" rel="noopener noreferrer">
+                        <img class="book-card-image" src="https://m.media-amazon.com/images/I/51X90f6j4jL.jpg" alt="Docker & Kubernetesネットワークのしくみ">
+                        <div class="book-card-info">
+                            <h3>Docker & Kubernetesネットワークのしくみ</h3>
+                            <p class="author">大隈 峻太郎</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="book-card">
+                    <a href="https://www.amazon.co.jp/dp/B0C7BJLJXW" target="_blank" rel="noopener noreferrer">
+                        <img class="book-card-image" src="https://m.media-amazon.com/images/I/51dVNnTf5XL.jpg" alt="Kubernetesの知識地図">
+                        <div class="book-card-info">
+                            <h3>Kubernetesの知識地図</h3>
+                            <p class="author">青山 真也 他</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="book-card">
+                    <a href="https://www.amazon.co.jp/dp/B0DSZV6BT2" target="_blank" rel="noopener noreferrer">
+                        <img class="book-card-image" src="https://m.media-amazon.com/images/I/51DbhruTsEL.jpg" alt="つくりながら学ぶ！LLM 自作入門">
+                        <div class="book-card-info">
+                            <h3>つくりながら学ぶ！LLM 自作入門</h3>
+                            <p class="author">Sebastian Raschka</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="book-card">
+                    <a href="https://www.amazon.co.jp/dp/B0FM3QJ2DP" target="_blank" rel="noopener noreferrer">
+                        <img class="book-card-image" src="https://m.media-amazon.com/images/I/51exnlSyfsL.jpg" alt="現場で活用するためのAIエージェント実践入門">
+                        <div class="book-card-info">
+                            <h3>現場で活用するためのAIエージェント実践入門</h3>
+                            <p class="author">太田真人 他</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="book-card">
+                    <a href="https://www.amazon.co.jp/dp/B0DK4YGYBL" target="_blank" rel="noopener noreferrer">
+                        <img class="book-card-image" src="https://m.media-amazon.com/images/I/51hcvyPcUnL.jpg" alt="LangChainとLangGraphによるRAG・AIエージェント実践入門">
+                        <div class="book-card-info">
+                            <h3>LangChainとLangGraphによるRAG・AIエージェント実践入門</h3>
+                            <p class="author">西見 公宏 他</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="book-card">
+                    <a href="https://www.amazon.co.jp/dp/B0CFL1DK8Q" target="_blank" rel="noopener noreferrer">
+                        <img class="book-card-image" src="https://m.media-amazon.com/images/I/51BmDUG6D0L.jpg" alt="Go言語 100Tips">
+                        <div class="book-card-info">
+                            <h3>Go言語 100Tips</h3>
+                            <p class="author">Teiva Harsanyi</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="book-card">
+                    <a href="https://www.amazon.co.jp/dp/B0CP741RX8" target="_blank" rel="noopener noreferrer">
+                        <img class="book-card-image" src="https://m.media-amazon.com/images/I/418U5zL8XmL.jpg" alt="systemdの思想と機能">
+                        <div class="book-card-info">
+                            <h3>systemdの思想と機能</h3>
+                            <p class="author">森若 和雄</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="book-card">
+                    <a href="https://www.amazon.co.jp/dp/B073GSDBGT" target="_blank" rel="noopener noreferrer">
+                        <img class="book-card-image" src="https://m.media-amazon.com/images/I/51F-XAQ7V6L.jpg" alt="現場で役立つシステム設計の原則">
+                        <div class="book-card-info">
+                            <h3>現場で役立つシステム設計の原則</h3>
+                            <p class="author">増田 亨</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>
+                <a href="https://shimako55.github.io/my-bookshelf/">My Bookshelf</a> に戻る
+            </p>
+        </footer>
     </div>
 </body>
 </html>

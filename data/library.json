@@ -1,5 +1,5 @@
 {
-  "exportDate": "2025-11-24T13:25:46.730Z",
+  "exportDate": "2025-11-24T13:57:27.742Z",
   "books": {
     "B0FL1PRSH4": {
       "title": "Ｐｙｔｈｏｎで動かしながら学ぶ　コンピュータネットワーク (ＫＳ情報科学専門書)",
@@ -814,22 +814,50 @@
       "addedDate": 1763990727734,
       "memo": "",
       "rating": 0
+    },
+    "463513010X": {
+      "title": "文系でもよくわかる世界の仕組みを物理学で知る",
+      "authors": "松原隆彦",
+      "acquiredTime": 1763992636725,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/463513010X.01.L.jpg",
+      "source": "manual_add",
+      "addedDate": 1763992636725,
+      "memo": "",
+      "rating": 0
     }
   },
-  "bookshelves": [],
+  "bookshelves": [
+    {
+      "id": "bookshelf_1763992031081",
+      "name": "test",
+      "emoji": "📚",
+      "description": "",
+      "isPublic": true,
+      "books": [
+        "B0FL1PRSH4"
+      ],
+      "createdAt": "2025-11-24T13:47:11.081Z",
+      "staticPageInfo": {
+        "filename": "bookshelf_1763992031081.html",
+        "lastGenerated": "2025-11-24T13:47:13.751Z",
+        "url": "https://shimako55.github.io/my-bookshelf/static/bookshelf_1763992031081.html"
+      }
+    }
+  ],
   "settings": {
     "defaultView": "hybrid",
     "showHighlights": true,
     "currentBookshelf": "all",
     "theme": "light",
     "booksPerPage": "200",
-    "showImagesInOverview": false,
+    "showImagesInOverview": true,
     "coverSize": "small",
     "githubPagesBaseUrl": "https://shimako55.github.io/my-bookshelf"
   },
   "bookOrder": {},
   "stats": {
-    "totalBooks": 74,
+    "totalBooks": 75,
     "notesCount": 0
   },
   "version": "2.0"
