@@ -1,5 +1,5 @@
 {
-  "exportDate": "2025-11-24T12:20:39.681Z",
+  "exportDate": "2025-11-24T13:25:46.730Z",
   "books": {
     "B0FL1PRSH4": {
       "title": "Ｐｙｔｈｏｎで動かしながら学ぶ　コンピュータネットワーク (ＫＳ情報科学専門書)",
@@ -803,6 +803,17 @@
       "addedDate": 1763983724392,
       "memo": "",
       "rating": 0
+    },
+    "4800721482": {
+      "title": "生成AI投資の教科書",
+      "authors": "ジョン・シュウギョウ",
+      "acquiredTime": 1763990727734,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/4800721482.01.L.jpg",
+      "source": "manual_add",
+      "addedDate": 1763990727734,
+      "memo": "",
+      "rating": 0
     }
   },
   "bookshelves": [],
@@ -818,7 +829,7 @@
   },
   "bookOrder": {},
   "stats": {
-    "totalBooks": 73,
+    "totalBooks": 74,
     "notesCount": 0
   },
   "version": "2.0"
