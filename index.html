@@ -119,18 +119,6 @@
                         </div>
 
                     </div>
-                    
-                    
-                    
-                    <div class="library-management">
-                        <h3>蔵書管理</h3>
-                        <div class="management-buttons">
-                            <button id="add-book-manually" class="btn btn-secondary">➕ 手動追加</button>
-                            <button id="import-kindle" class="btn btn-secondary">📥 Kindleインポート</button>
-                            <button id="export-unified" class="btn btn-secondary">💾 データエクスポート</button>
-                            <button id="clear-library" class="btn btn-danger">🗑️ 蔵書をクリア</button>
-                        </div>
-                    </div>
                 </div>
             </aside>
 
@@ -253,89 +241,6 @@
                     <div class="share-result-content">
                         <!-- Generation results will be shown here -->
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Book Management Modals -->
-    <!-- Kindle Import Modal -->
-    <div id="import-modal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" id="import-modal-close">×</button>
-            <div class="modal-header">
-                <h2>📥 Kindleデータインポート</h2>
-            </div>
-            <div class="modal-body">
-                <div class="import-options">
-                    <div class="import-option">
-                        <h3>ファイルからインポート</h3>
-                        <input type="file" id="kindle-file-input" accept=".json" />
-                        <button id="import-from-file" class="btn btn-primary">ファイルをインポート</button>
-                    </div>
-
-                </div>
-                <div id="book-selection" class="book-selection" style="display: none;">
-                    <h3>📚 インポートする本を選択</h3>
-                    <div class="selection-controls">
-                        <div class="filter-options" style="margin-bottom: 1rem;">
-                            <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                <input type="checkbox" id="hide-existing-books" checked>
-                                <span>📚 インポート済みの本を非表示にする</span>
-                            </label>
-                        </div>
-                        <button id="select-all-books" class="btn btn-small">全て選択</button>
-                        <button id="deselect-all-books" class="btn btn-small">全て解除</button>
-                        <span class="selected-count">選択: <span id="selected-count">0</span>冊</span>
-                    </div>
-                    <div id="book-list" class="book-selection-list">
-                        <!-- Book selection checkboxes will be populated here -->
-                    </div>
-                    <div class="import-actions">
-                        <button id="import-selected-books" class="btn btn-primary" disabled>選択した本をインポート</button>
-                        <button id="cancel-import" class="btn btn-secondary">キャンセル</button>
-                    </div>
-                </div>
-                <div id="import-results" class="import-results" style="display: none;">
-                    <!-- Import results will be shown here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Manual Book Addition Modal -->
-    <div id="add-book-modal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" id="add-book-modal-close">×</button>
-            <div class="modal-header">
-                <h2>➕ 手動で本を追加</h2>
-            </div>
-            <div class="modal-body">
-                <div class="add-book-options">
-                    <div class="add-option">
-                        <h3>本の情報を入力</h3>
-                        <div class="form-group">
-                            <label for="manual-asin">ASIN</label>
-                            <div class="asin-input-container">
-                                <input type="text" id="manual-asin" placeholder="B012345678" maxlength="10" />
-                                <button type="button" id="fetch-book-info" class="btn btn-small btn-secondary">📥 自動取得</button>
-                            </div>
-                            <div class="asin-status" id="asin-status" style="display: none;"></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="manual-title">タイトル</label>
-                            <input type="text" id="manual-title" placeholder="書籍タイトル" />
-                        </div>
-                        <div class="form-group">
-                            <label for="manual-authors">著者</label>
-                            <input type="text" id="manual-authors" placeholder="著者名" />
-                        </div>
-
-                        <button id="add-manually" class="btn btn-primary">手動追加</button>
-                    </div>
-                </div>
-                <div id="add-book-results" class="add-results" style="display: none;">
-                    <!-- Addition results will be shown here -->
                 </div>
             </div>
         </div>
