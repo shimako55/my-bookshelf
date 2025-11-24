@@ -22,7 +22,7 @@ class VirtualBookshelf {
         this.currentView = 'covers';
         this.currentPage = 1;
         this.booksPerPage = 50;
-        this.sortOrder = 'custom';
+        this.sortOrder = 'acquiredTime';
         this.sortDirection = 'desc';
         
         this.init();
