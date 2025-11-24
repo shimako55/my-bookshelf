@@ -825,6 +825,28 @@
       "addedDate": 1763992636725,
       "memo": "",
       "rating": 0
+    },
+    "4040823923": {
+      "title": "書くことについて (角川新書)",
+      "authors": "野口悠紀雄",
+      "acquiredTime": 1764069089000,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/4040823923.01.L.jpg",
+      "source": "manual_add",
+      "addedDate": 1764069089000,
+      "memo": "",
+      "rating": 0
+    },
+    "4478011664": {
+      "title": "行動経済学入門―基礎から応用までまるわかり",
+      "authors": "真壁昭夫",
+      "acquiredTime": 1764069500000,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/4478011664.01.L.jpg",
+      "source": "manual_add",
+      "addedDate": 1764069500000,
+      "memo": "",
+      "rating": 0
     }
   },
   "bookshelves": [
@@ -857,7 +879,7 @@
   },
   "bookOrder": {},
   "stats": {
-    "totalBooks": 75,
+    "totalBooks": 77,
     "notesCount": 0
   },
   "version": "2.0"
