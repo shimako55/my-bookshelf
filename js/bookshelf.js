@@ -1,6 +1,6 @@
 // Virtual Bookshelf - Main JavaScript
 // Debug flag system
-const DEBUG = false; // Set to false for production
+const DEBUG = true; // Set to false for production
 
 function debugLog(...args) {
     if (DEBUG) {
