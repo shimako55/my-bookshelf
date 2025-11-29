@@ -536,12 +536,12 @@ class VirtualBookshelf {
             bookElement.innerHTML = `
                 <div class="book-cover-container">
                     <div class="drag-handle">⋮⋮</div>
-                    <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="book-cover-link">
+                    <div class="book-cover-link">
                         ${book.productImage ?
                             `<img class="book-cover lazy" data-src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}" alt="${this.escapeHtml(book.title)}">` :
                             `<div class="book-cover-placeholder">${this.escapeHtml(book.title)}</div>`
                         }
-                    </a>
+                    </div>
                 </div>
                 <div class="book-info">
                     <div class="book-title">${this.escapeHtml(book.title)}</div>
@@ -559,12 +559,12 @@ class VirtualBookshelf {
             bookElement.innerHTML = `
                 <div class="book-cover-container">
                     <div class="drag-handle">⋮⋮</div>
-                    <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="book-cover-link">
+                    <div class="book-cover-link">
                         ${book.productImage ?
                             `<img class="book-cover lazy" data-src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}" alt="${this.escapeHtml(book.title)}">` :
                             '<div class="book-cover-placeholder">📖</div>'
                         }
-                    </a>
+                    </div>
                 </div>
                 <div class="book-info">
                     <div class="book-title">${book.title}</div>
@@ -594,19 +594,25 @@ class VirtualBookshelf {
                 return;
             }
 
-            // Only show detail if clicking the detail link
-            if (e.target.classList.contains('detail-link')) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.showBookDetail(book);
+            // Allow Amazon link to work normally
+            if (e.target.closest('.amazon-link')) {
                 return;
             }
 
-            // Prevent default click behavior for other elements
-            if (!e.target.closest('a')) {
+            // Show detail for any other click (including detail-link)
+            if (e.target.classList.contains('detail-link')) {
                 e.preventDefault();
                 e.stopPropagation();
+            } else if (!e.target.closest('a')) {
+                // Click on book itself (not on any link)
+                e.preventDefault();
+                e.stopPropagation();
+            } else {
+                // Other links - let them work normally
+                return;
             }
+
+            this.showBookDetail(book);
         });
         
         return bookElement;
