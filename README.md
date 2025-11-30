@@ -67,14 +67,14 @@
 3. 購入日と読書状況を設定
 
 **方法3: データファイルを直接編集**
-1. `data/my_library.json` を編集（後述のデータフォーマット参照）
-2. `data/user_data.json` でお気に入りや本棚を設定
+1. `data/library.json` を編集（後述のデータフォーマット参照）
+2. 本棚設定やお気に入りも`data/library.json`に統合
 
 ### 5. カスタマイズ
 
 #### 基本設定
-- **アフィリエイトID**: `data/user_data.json`の`settings.affiliateId`を変更
-- **本棚の作成**: デフォルトの本棚を編集、新しい本棚を追加
+- **アフィリエイトID**: `data/config.json`の`affiliateId`を変更
+- **本棚の作成**: アプリ内で「本棚管理」から作成、または`data/library.json`を編集
 - **カラーテーマ**: CSS変数でカスタマイズ
 
 #### ハイライト機能（オプション）
@@ -101,9 +101,9 @@ virtual-bookshelf/
 ├── static/                 # 静的ページファイル（手動配置）
 │   └── bookshelf-*.html   # 生成された静的本棚ページ
 ├── data/
-│   ├── my_library.json    # メイン蔵書データ
-│   ├── user_data.json     # ユーザー設定・メモ・本棚設定
-│   ├── highlights-index.json # ハイライトファイルのASINマッピング
+│   ├── library.json       # 統合蔵書データ（書籍情報+ユーザーメモ+本棚設定）
+│   ├── config.json        # グローバル設定（アフィリエイトID、GitHubPages URLなど）
+│   ├── highlights-index.json # ハイライトファイルのASINマッピング（自動生成）
 │   ├── KindleHighlights/  # ハイライトMarkdownファイル（元ファイル）
 │   └── HighlightsASCII/   # ASCIIファイル名のハイライト（Web表示用）
 ├── scripts/
@@ -131,63 +131,66 @@ php -S localhost:8000
 
 ## 💾 データフォーマット
 
-### 蔵書データ (data/my_library.json)
+### 統合蔵書データ (data/library.json) - v2.0形式
 ```json
 {
-  "books": [
-    {
-      "asin": "B0XXXXXXXXX",
+  "exportDate": "2024-01-01T00:00:00.000Z",
+  "books": {
+    "B0XXXXXXXXX": {
       "title": "書籍タイトル",
       "authors": "著者名",
       "acquiredTime": 1756899555435,
       "readStatus": "READ|UNKNOWN",
-      "productImage": "https://m.media-amazon.com/images/I/...",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B0XXXXXXXXX.01.L.jpg",
       "source": "kindle_import|manual_add",
-      "addedDate": 1756899555435
+      "addedDate": 1756899555435,
+      "memo": "素晴らしい本でした！詳細は[こちら](https://example.com)をご覧ください",
+      "rating": 5,
+      "updatedAsin": "B0YYYYYYYYY"
     }
-  ],
-  "metadata": {
-    "totalBooks": 100,
-    "manuallyAdded": 5,
-    "importedFromKindle": 95,
-    "lastImportDate": 1756899555435
-  }
-}
-```
-
-### ユーザー設定 (data/user_data.json)
-```json
-{
+  },
   "bookshelves": [
     {
       "id": "tech-books",
       "name": "💻 技術書",
+      "emoji": "💻",
       "description": "プログラミング・技術関連の本",
       "books": ["B0XXXXXXXXX"],
       "isPublic": true,
-      "color": "#3498db"
+      "createdAt": "2024-01-01T00:00:00.000Z",
+      "lastUpdated": "2024-01-01T00:00:00.000Z"
     }
   ],
-  "notes": {
-    "B0XXXXXXXXX": {
-      "memo": "素晴らしい本でした！詳細は[こちら](https://example.com)をご覧ください",
-      "rating": 5
-    }
-  },
   "settings": {
-    "defaultView": "hybrid",
-    "affiliateId": "your-affiliate-id",
+    "defaultView": "covers",
     "showHighlights": true,
     "currentBookshelf": "all",
     "theme": "light",
-    "booksPerPage": 50
+    "booksPerPage": 50,
+    "coverSize": "medium",
+    "showImagesInOverview": true
   },
   "bookOrder": {
     "all": ["B0XXXXXXXXX", "B0YYYYYYYYY"],
     "tech-books": ["B0XXXXXXXXX"]
-  }
+  },
+  "stats": {
+    "totalBooks": 100,
+    "notesCount": 50
+  },
+  "version": "2.0"
 }
 ```
+
+### グローバル設定 (data/config.json)
+```json
+{
+  "affiliateId": "your-affiliate-id-22",
+  "githubPagesBaseUrl": "https://yourusername.github.io/my-bookshelf"
+}
+```
+
+**注意**: LocalStorageに保存されたデータが優先され、`library.json`はLocalStorageが空の場合のフォールバックとして機能します。定期的に「💾 設定をエクスポート」でバックアップを取ることを推奨します。
 
 ## 🎨 使い方
 
@@ -242,9 +245,11 @@ git push origin main
 4. **複数選択**: 星2,3,4や星4,5など複数の評価を組み合わせ表示
 
 ### データの永続化
-1. 「💾 設定をエクスポート」でuser_data.jsonをダウンロード
-2. ダウンロードしたファイルを`data/user_data.json`として保存
-3. GitHubリポジトリにpushして設定を永続化
+1. 「💾 設定をエクスポート」で`library.json`をダウンロード
+2. ダウンロードしたファイルを`data/library.json`として保存
+3. GitHubリポジトリにコミット・プッシュして設定を永続化
+
+**重要**: LocalStorageはブラウザ固有のため、定期的なエクスポートを推奨します。異なるデバイスやブラウザでデータを共有する場合は、エクスポートした`library.json`をGitHubにプッシュしてから、新しい環境でページをリロードしてください。
 
 ## 📱 対応環境
 
@@ -269,8 +274,9 @@ git push origin main
 - スタイリングは`css/bookshelf.css`に追加
 
 ### Amazon Associatesの設定
-- `data/user_data.json`の`settings.affiliateId`を変更
+- `data/config.json`の`affiliateId`を変更
 - アフィリエイトプログラムの利用規約を確認
+- `githubPagesBaseUrl`を自分のGitHub PagesのURLに変更
 
 ## 📄 ライセンス
 
