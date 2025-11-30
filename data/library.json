@@ -858,6 +858,17 @@
       "addedDate": 1732948710000,
       "memo": "",
       "rating": 0
+    },
+    "4062178664": {
+      "title": "フッサール心理学宣言 : 他者の自明性がひび割れる時代に",
+      "authors": "渡辺 恒夫",
+      "acquiredTime": 1732946730000,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/4062178664.01.L.jpg",
+      "source": "manual_add",
+      "addedDate": 1732946730000,
+      "memo": "",
+      "rating": 0
     }
   },
   "bookshelves": [
@@ -890,7 +901,7 @@
   },
   "bookOrder": {},
   "stats": {
-    "totalBooks": 78,
+    "totalBooks": 79,
     "notesCount": 1
   },
   "version": "2.0"
