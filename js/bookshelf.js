@@ -14,6 +14,45 @@ function debugError(...args) {
     }
 }
 
+/**
+ * 現在の日付をISO形式の日付文字列（YYYY-MM-DD）で返す
+ * @returns {string} ISO形式の日付文字列
+ */
+function getCurrentDateISO() {
+    return new Date().toISOString().split('T')[0];
+}
+
+/**
+ * タイムスタンプまたはISO文字列をISO形式の日付文字列（YYYY-MM-DD）に変換
+ * 後方互換性のため、数値（タイムスタンプ）と文字列（ISO形式）の両方に対応
+ * @param {number|string} dateValue - UNIXタイムスタンプ（ミリ秒）またはISO文字列
+ * @returns {string} ISO形式の日付文字列
+ */
+function formatDateISO(dateValue) {
+    if (!dateValue) return '-';
+
+    // 既にISO形式の文字列の場合
+    if (typeof dateValue === 'string') {
+        return dateValue.split('T')[0];
+    }
+
+    // タイムスタンプ（数値）の場合
+    const date = new Date(dateValue);
+    return date.toISOString().split('T')[0];
+}
+
+/**
+ * 2つの日付を比較（タイムスタンプとISO文字列の両方に対応）
+ * @param {number|string} date1 - 日付1
+ * @param {number|string} date2 - 日付2
+ * @returns {number} date1 > date2 なら正、date1 < date2 なら負、等しければ0
+ */
+function compareDates(date1, date2) {
+    const time1 = typeof date1 === 'string' ? new Date(date1).getTime() : date1;
+    const time2 = typeof date2 === 'string' ? new Date(date2).getTime() : date2;
+    return time1 - time2;
+}
+
 class VirtualBookshelf {
     constructor() {
         this.books = [];
@@ -359,21 +398,22 @@ class VirtualBookshelf {
         this.filteredBooks.sort((a, b) => {
             let aValue = a[this.sortOrder];
             let bValue = b[this.sortOrder];
-            
+
+            let comparison = 0;
+
             if (this.sortOrder === 'acquiredTime') {
-                aValue = parseInt(aValue);
-                bValue = parseInt(bValue);
-            }
-            
-            if (typeof aValue === 'string') {
+                // 日付比較（タイムスタンプとISO文字列の両方に対応）
+                comparison = compareDates(aValue, bValue);
+            } else if (typeof aValue === 'string') {
                 aValue = aValue.toLowerCase();
                 bValue = bValue.toLowerCase();
+                if (aValue > bValue) comparison = 1;
+                if (aValue < bValue) comparison = -1;
+            } else {
+                if (aValue > bValue) comparison = 1;
+                if (aValue < bValue) comparison = -1;
             }
-            
-            let comparison = 0;
-            if (aValue > bValue) comparison = 1;
-            if (aValue < bValue) comparison = -1;
-            
+
             return this.sortDirection === 'asc' ? comparison : -comparison;
         });
         
@@ -748,7 +788,7 @@ class VirtualBookshelf {
                                 <button class="btn btn-primary edit-mode-btn" data-asin="${book.asin}" style="margin-left: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem;">✏️ 編集</button>
                             </div>
                             <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>著者:</strong> ${book.authors}</p>
-                            <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>購入日:</strong> ${new Date(book.acquiredTime).toLocaleDateString('ja-JP')}</p>
+                            <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>追加日:</strong> ${formatDateISO(book.addedDate)}</p>
                             <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>ASIN:</strong> ${book.asin}</p>
                             ${book.updatedAsin ? `<p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>変更後ASIN:</strong> ${book.updatedAsin}</p>` : ''}
                         </div>
@@ -1538,7 +1578,7 @@ class VirtualBookshelf {
 
             // 購入日が変更されている場合は更新
             if (newAcquiredTime) {
-                updateData.acquiredTime = new Date(newAcquiredTime).getTime();
+                updateData.acquiredTime = newAcquiredTime;
             }
 
             // 変更後ASINの処理

@@ -116,12 +116,7 @@ virtual-bookshelf/
 ## 🛠️ ローカル開発
 
 ```bash
-# HTTPサーバーを起動（CORS制約回避のため）
-python -m http.server 8000
-# または
 npx serve .
-# または
-php -S localhost:8000
 
 # ハイライトインデックス生成（ハイライト機能を使用する場合）
 ./scripts/generate-highlights-index.sh

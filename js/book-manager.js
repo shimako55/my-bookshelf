@@ -1,4 +1,12 @@
 /**
+ * 現在の日付をISO形式の日付文字列（YYYY-MM-DD）で返す
+ * @returns {string} ISO形式の日付文字列
+ */
+function getCurrentDateISO() {
+    return new Date().toISOString().split('T')[0];
+}
+
+/**
  * BookManager - 蔵書の CRUD 管理を担当するクラス
  * kindle.json からのインポート、手動追加、削除機能を提供
  */
@@ -85,11 +93,11 @@ class BookManager {
             this.library.books = kindleBooks.map(book => ({
                 ...book,
                 source: 'kindle_import',
-                addedDate: Date.now()
+                addedDate: getCurrentDateISO()
             }));
-            
+
             this.library.metadata = {
-                lastImportDate: Date.now(),
+                lastImportDate: getCurrentDateISO(),
                 totalBooks: kindleBooks.length,
                 manuallyAdded: 0,
                 importedFromKindle: kindleBooks.length
@@ -148,14 +156,14 @@ class BookManager {
                 this.library.books.push({
                     ...kindleBook,
                     source: 'kindle_import',
-                    addedDate: Date.now()
+                    addedDate: getCurrentDateISO()
                 });
                 importResults.added++;
             }
         }
 
         // メタデータ更新
-        this.library.metadata.lastImportDate = Date.now();
+        this.library.metadata.lastImportDate = getCurrentDateISO();
         this.library.metadata.totalBooks = this.library.books.length;
         this.library.metadata.importedFromKindle = this.library.books.filter(book => book.source === 'kindle_import').length;
 
@@ -189,7 +197,7 @@ class BookManager {
                 const bookToAdd = {
                     ...book,
                     source: 'kindle_import',
-                    addedDate: Date.now()
+                    addedDate: getCurrentDateISO()
                 };
                 
                 this.library.books.push(bookToAdd);
@@ -210,7 +218,7 @@ class BookManager {
             totalBooks: this.library.books.length,
             manuallyAdded: this.library.books.filter(b => b.source === 'manual_add').length,
             importedFromKindle: this.library.books.filter(b => b.source === 'kindle_import').length,
-            lastImportDate: Date.now()
+            lastImportDate: getCurrentDateISO()
         };
         
         // ライブラリを保存
@@ -304,7 +312,7 @@ class BookManager {
                     asin: asin,
                     title: book.title || 'タイトル未取得',
                     authors: book.authors ? book.authors.join(', ') : '著者未取得',
-                    acquiredTime: Date.now(),
+                    acquiredTime: getCurrentDateISO(),
                     readStatus: 'UNKNOWN',
                     productImage: book.imageLinks ?
                         (book.imageLinks.large || book.imageLinks.medium || book.imageLinks.thumbnail) :
@@ -327,7 +335,7 @@ class BookManager {
                     asin: asin,
                     title: book.title || 'タイトル未取得',
                     authors: book.authors ? book.authors.join(', ') : '著者未取得',
-                    acquiredTime: Date.now(),
+                    acquiredTime: getCurrentDateISO(),
                     readStatus: 'UNKNOWN',
                     productImage: book.imageLinks ?
                         (book.imageLinks.large || book.imageLinks.medium || book.imageLinks.thumbnail) :
@@ -369,7 +377,7 @@ class BookManager {
             asin: asin,
             title: title,
             authors: authors,
-            acquiredTime: Date.now(),
+            acquiredTime: getCurrentDateISO(),
             readStatus: 'UNKNOWN',
             productImage: `https://images-na.ssl-images-amazon.com/images/P/${asin}.01.L.jpg`
         };
@@ -425,11 +433,11 @@ class BookManager {
             asin: asin,
             title: bookData.title || 'タイトル未設定',
             authors: bookData.authors || '著者未設定',
-            acquiredTime: bookData.acquiredTime || Date.now(),
+            acquiredTime: bookData.acquiredTime || getCurrentDateISO(),
             readStatus: bookData.readStatus || 'UNKNOWN',
             productImage: bookData.productImage || `https://images-na.ssl-images-amazon.com/images/P/${asin}.01.L.jpg`,
             source: 'manual_add',
-            addedDate: Date.now()
+            addedDate: getCurrentDateISO()
         };
 
         this.library.books.push(newBook);
