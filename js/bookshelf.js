@@ -802,7 +802,7 @@ class VirtualBookshelf {
                                 <input type="text" class="edit-authors" data-asin="${book.asin}" value="${book.authors}" />
                             </div>
                             <div class="edit-field">
-                                <label>📅 購入日</label>
+                                <label>📅 追加日</label>
                                 <input type="date" class="edit-acquired-time" data-asin="${book.asin}" value="${new Date(book.acquiredTime).toISOString().split('T')[0]}" />
                             </div>
                             <div class="edit-field">
@@ -1576,7 +1576,7 @@ class VirtualBookshelf {
                 updateData.asin = newOriginalAsin;
             }
 
-            // 購入日が変更されている場合は更新
+            // 追加日が変更されている場合は更新
             if (newAcquiredTime) {
                 updateData.acquiredTime = newAcquiredTime;
             }
